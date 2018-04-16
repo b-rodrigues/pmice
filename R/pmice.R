@@ -14,10 +14,13 @@ pmice <- function(data, m = 5, method = vector("character", length = ncol(data))
                   printFlag = FALSE, seed = NA, imputationMethod = NULL, defaultImputationMethod = NULL,
                   data.init = NULL, ...)
     {
-    furrr::future_map(rep(1, m), ~mice::mice(
+    imputations <- furrr::future_map(rep(1, m), ~mice::mice(
         data, m = ., method, predictorMatrix, where, visitSequence, form, post,
         defaultMethod, maxit, diagnostics, printFlag, seed, imputationMethod,
         defaultImputationMethod, data.init, ...
         ))
+
+    purrr::reduce(imputations, mice::ibind)
+
     }
 
