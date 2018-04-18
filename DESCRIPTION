@@ -12,6 +12,7 @@ RoxygenNote: 6.0.1
 Depends:
     mice,
     furrr
-Imports: 
+Imports:
     mice,
     furrr
+Suggests: testthat
